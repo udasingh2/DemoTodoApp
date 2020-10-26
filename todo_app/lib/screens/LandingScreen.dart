@@ -32,7 +32,7 @@ class LandingScreenState extends State<LandingScreen>
     super.initState();
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    animation = Tween<double>(begin: 100, end: -300).animate(animationController)
+    animation = Tween<double>(begin: 70, end: -280).animate(animationController)
       ..addListener(() {
         setState(() {});
       });
@@ -41,6 +41,7 @@ class LandingScreenState extends State<LandingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
       body: Center(
           child: Stack(
         children: <Widget>[
@@ -54,7 +55,6 @@ class LandingScreenState extends State<LandingScreen>
   _pagebuilder() {
     return PageView.builder(
       itemBuilder: (context, position) {
-
         if (position == 0) {
           animationController.reverse();
         }else if (position == 1) {

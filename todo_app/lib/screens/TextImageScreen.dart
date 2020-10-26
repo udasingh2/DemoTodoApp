@@ -33,7 +33,7 @@ class TextImageScreenState extends State<TextImageScreen>
            children: <Widget>[
            SizedBox(height: 170),
          _textWidget(widget.position),
-          SizedBox(height: 150),
+          SizedBox(height: 100),
              customDynamicWidget(),
       ],
     ));
@@ -51,7 +51,6 @@ class TextImageScreenState extends State<TextImageScreen>
     }else if(postion == 5) {
       return _page6text();
     }
-    
   }
 
   _page2text() {
@@ -96,7 +95,7 @@ class TextImageScreenState extends State<TextImageScreen>
 
   _page4text() {
     return Text(
-      'there are three navigations lavel...',
+      'there are three navigations lavel...\n\n\n  ',
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 25, color:Colors.black),
     );
@@ -138,7 +137,7 @@ class TextImageScreenState extends State<TextImageScreen>
               style: TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold)),
           TextSpan(
-              text: 'to edit it...',
+              text: 'to edit it...\n ',
               style: TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold)),
         ],
