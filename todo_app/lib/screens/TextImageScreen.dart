@@ -18,7 +18,7 @@ class TextImageScreenState extends State<TextImageScreen>
     // TODO: implement initState
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds:1));
+        AnimationController(vsync: this, duration: Duration(milliseconds:700));
     animation = Tween<double>(begin: 400, end: 0).animate(animationController)
       ..addListener(() {
         setState(() {});
@@ -31,7 +31,7 @@ class TextImageScreenState extends State<TextImageScreen>
     return Container(
         child: Column(
            children: <Widget>[
-           SizedBox(height: 150),
+           SizedBox(height: 170),
          _textWidget(widget.position),
           SizedBox(height: 150),
              customDynamicWidget(),

@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'dart:math';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:todoapp/utils/Utils.dart';
+import 'package:todoapp/utils/app_colors.dart';
+import 'package:todoapp/model/CardModel.Dart';
 
 class PersonalList extends StatefulWidget {
   @override
@@ -20,35 +23,18 @@ class PersonalListState extends State<PersonalList>
   int tappedIndex;
   FocusNode _focusNode;
 
-  List<String> entries;
+  List<CardModel> entries;
 
   List<int> colorCodes;
 
-  refreshlist() {
-    setState(() {
-      entries.insert(0, 'A new value added');
-      colorCodes.insert(0, 500);
-    });
-    print(entries);
-    return null;
-  }
 
   addToEntries() {
-    entries.add('Swipe to the right to complete!');
-    entries.add('Swipe to the left to delete!');
-    entries.add('Tap and hold to pick me up');
-    entries.add('Pull down to create an item');
-    entries.add('Try pinching to verticaly shut');
-    entries.add('Pull up to clear');
-  }
-
-  addToColorCodes() {
-    colorCodes.add(600);
-    colorCodes.add(500);
-    colorCodes.add(400);
-    colorCodes.add(300);
-    colorCodes.add(200);
-    colorCodes.add(100);
+    entries.add(CardModel('Swipe to the right to complete!',false,Utils.random()));
+    entries.add(CardModel('Swipe to the left to delete!',false,Utils.random()));
+    entries.add(CardModel('Tap and hold to pick me up',false,Utils.random()));
+    entries.add(CardModel('Pull down to create an item',false,Utils.random()));
+    entries.add(CardModel('Try pinching to verticaly shut',false,Utils.random()));
+    entries.add(CardModel('Pull up to clear',false,Utils.random()));
   }
 
   @override
@@ -59,7 +45,6 @@ class PersonalListState extends State<PersonalList>
     entries = List();
     colorCodes = List();
     addToEntries();
-    addToColorCodes();
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
     _animation = Tween(end: 1, begin: 0).animate(_animationController)
@@ -98,19 +83,20 @@ class PersonalListState extends State<PersonalList>
         entries.length,
         (index) {
           return Dismissible(
-            key: Key(entries[index]),
+            key:ValueKey(entries[index].name),
             onDismissed: (direction) {
               if (direction == DismissDirection.startToEnd) {
-
+                entries[index].isStrike = true;
+                entries[index].color = Colors.black;
+               _onReorder(index, entries.length);
 
               } else if (direction == DismissDirection.endToStart) {
                 setState(() {
                   entries.removeAt(index);
                 });
-
               }
             },
-            background: Container(color: Colors.black),
+            background: Container(color: Colors.green),
             secondaryBackground: Container(
               color: Colors.black,
               child: Align(
@@ -141,14 +127,15 @@ class PersonalListState extends State<PersonalList>
       child: Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
-        color: Colors.red[colorCodes[index]],
+        color: entries[index].color,
         child: Padding(
             padding: EdgeInsets.fromLTRB(20, 25, 10, 10),
-            child: Text(entries[index],
+            child: Text(entries[index].name,
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white))),
+                    color: AppColors.listTextColor,
+                    decoration:(entries[index].isStrike)?TextDecoration.lineThrough:TextDecoration.none ))),
       ),
     );
   }
@@ -156,7 +143,7 @@ class PersonalListState extends State<PersonalList>
   Widget customHeader() {
     return CustomHeader(builder: (c, m) {
       return Container(
-          height: 80,
+          height: 70,
           color: Colors.redAccent,
           padding: EdgeInsets.only(top: 20.0, left: 20),
           child: Transform(
@@ -180,10 +167,12 @@ class PersonalListState extends State<PersonalList>
                 controller: textFiledController,
                 onSubmitted: (String text) {
                   _refreshController.refreshCompleted();
-                  setState(() {
-                    entries.insert(0, text);
-                    colorCodes.insert(0, 500);
-                  });
+                  if(text.length > 0) {
+                    setState(() {
+                      entries.insert(0, CardModel(text, false, Colors.redAccent));
+                      textFiledController.text = '';
+                    });
+                  }
                 },
               )));
     });
@@ -195,10 +184,10 @@ class PersonalListState extends State<PersonalList>
         if (newIndex > oldIndex) {
           newIndex -= 1;
         }
-        final String item = entries.removeAt(oldIndex);
-        final int citem = colorCodes.removeAt(oldIndex);
+        final CardModel item = entries.removeAt(oldIndex);
+        item.isStrike = true;
+        item.color = Colors.black;
         entries.insert(newIndex, item);
-        colorCodes.insert(newIndex, citem);
       },
     );
   }

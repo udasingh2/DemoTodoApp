@@ -31,25 +31,11 @@ class LandingScreenState extends State<LandingScreen>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     animation = Tween<double>(begin: 100, end: -300).animate(animationController)
       ..addListener(() {
         setState(() {});
       });
-
-//    Timer.periodic(Duration(seconds: 5), (Timer timer) {
-//      if (_currentPage < 5) {
-//        _currentPage++;
-//      } else {
-//        _currentPage = 0;
-//      }
-//
-//      _pageController.animateToPage(
-//        _currentPage,
-//        duration: Duration(milliseconds: 350),
-//        curve: Curves.easeIn,
-//      );
-//    });
   }
 
   @override
@@ -68,7 +54,10 @@ class LandingScreenState extends State<LandingScreen>
   _pagebuilder() {
     return PageView.builder(
       itemBuilder: (context, position) {
-        if (position == 1) {
+
+        if (position == 0) {
+          animationController.reverse();
+        }else if (position == 1) {
           animationController.forward();
         } else if (position == 6) {
           animationController.reverse();
