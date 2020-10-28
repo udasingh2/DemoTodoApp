@@ -5,8 +5,9 @@ import 'package:todoapp/screens/SignInScreen.dart';
 class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: GestureDetector(
+    return new Scaffold(
+        body: Container(
+            child: GestureDetector(
       onTap: () => print('Tapped'),
       child: Column(
         children: <Widget>[
@@ -27,15 +28,16 @@ class SignInScreen extends StatelessWidget {
           Container(
               width: 250,
               height: 150,
-              child: Image.asset('assets/images/mail.png',fit: BoxFit.fill)),
+              child: Image.asset('assets/images/mail.png', fit: BoxFit.fill)),
           SizedBox(
             //Use of SizedBox
             height: 50,
           ),
-          SizedBox(
+          Container(
             width: 285.0,
             height: 45.0,
-            child:  TextField(
+            child: TextField(
+              key: Key('email'),
               decoration: new InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.0),
@@ -62,7 +64,12 @@ class SignInScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                       side: BorderSide(color: Colors.black)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PersonalList()),
+                    );
+                  },
                   textColor: Colors.black,
                   child: Text("Skip", style: TextStyle(fontSize: 15)),
                 ),
@@ -72,6 +79,7 @@ class SignInScreen extends StatelessWidget {
                 width: 120.0,
                 height: 45.0,
                 child: FlatButton(
+                  key:Key('Join'),
                   color: Colors.transparent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -92,6 +100,6 @@ class SignInScreen extends StatelessWidget {
           )
         ],
       ),
-    ));
+    )));
   }
 }

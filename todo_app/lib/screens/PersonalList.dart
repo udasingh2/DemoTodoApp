@@ -27,14 +27,17 @@ class PersonalListState extends State<PersonalList>
 
   List<int> colorCodes;
 
-
   addToEntries() {
-    entries.add(CardModel('Swipe to the right to complete!',false,Utils.random()));
-    entries.add(CardModel('Swipe to the left to delete!',false,Utils.random()));
-    entries.add(CardModel('Tap and hold to pick me up',false,Utils.random()));
-    entries.add(CardModel('Pull down to create an item',false,Utils.random()));
-    entries.add(CardModel('Try pinching to verticaly shut',false,Utils.random()));
-    entries.add(CardModel('Pull up to clear',false,Utils.random()));
+    entries.add(
+        CardModel('Swipe to the right to complete!', false, Utils.random()));
+    entries
+        .add(CardModel('Swipe to the left to delete!', false, Utils.random()));
+    entries.add(CardModel('Tap and hold to pick me up', false, Utils.random()));
+    entries
+        .add(CardModel('Pull down to create an item', false, Utils.random()));
+    entries.add(
+        CardModel('Try pinching to verticaly shut', false, Utils.random()));
+    entries.add(CardModel('Pull up to clear', false, Utils.random()));
   }
 
   @override
@@ -83,13 +86,12 @@ class PersonalListState extends State<PersonalList>
         entries.length,
         (index) {
           return Dismissible(
-            key:ValueKey(entries[index].name),
+            key: ValueKey(entries[index].name),
             onDismissed: (direction) {
               if (direction == DismissDirection.startToEnd) {
                 entries[index].isStrike = true;
                 entries[index].color = Colors.black;
-               _onReorder(index, entries.length);
-
+                _onReorder(index, entries.length);
               } else if (direction == DismissDirection.endToStart) {
                 setState(() {
                   entries.removeAt(index);
@@ -135,7 +137,9 @@ class PersonalListState extends State<PersonalList>
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: AppColors.listTextColor,
-                    decoration:(entries[index].isStrike)?TextDecoration.lineThrough:TextDecoration.none ))),
+                    decoration: (entries[index].isStrike)
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none))),
       ),
     );
   }
@@ -167,9 +171,10 @@ class PersonalListState extends State<PersonalList>
                 controller: textFiledController,
                 onSubmitted: (String text) {
                   _refreshController.refreshCompleted();
-                  if(text.length > 0) {
+                  if (text.length > 0) {
                     setState(() {
-                      entries.insert(0, CardModel(text, false, Colors.redAccent));
+                      entries.insert(
+                          0, CardModel(text, false, Colors.redAccent));
                       textFiledController.text = '';
                     });
                   }
@@ -191,5 +196,4 @@ class PersonalListState extends State<PersonalList>
       },
     );
   }
-
 }

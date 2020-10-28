@@ -16,8 +16,8 @@ class LandingScreen extends StatefulWidget {
   LandingScreenState createState() => LandingScreenState();
 }
 
-class LandingScreenState extends State<LandingScreen>
-    with TickerProviderStateMixin {
+class LandingScreenState extends State<LandingScreen> with TickerProviderStateMixin {
+
   Animation<double> animation;
   AnimationController animationController;
   int _currentPage = 0;
