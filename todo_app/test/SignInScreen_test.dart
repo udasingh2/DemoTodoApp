@@ -12,8 +12,6 @@ void main(){
 
   NavigatorObserver mockNavigationObserver;
 
-
-
   Widget makeTestableWidget({Widget child}) {
     return MaterialApp(
       home: child,

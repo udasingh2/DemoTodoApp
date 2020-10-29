@@ -19,7 +19,7 @@ class TextImageScreenState extends State<TextImageScreen>
     super.initState();
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds:700));
-    animation = Tween<double>(begin: 400, end: 0).animate(animationController)
+    animation = Tween<double>(begin: 350, end: 0).animate(animationController)
       ..addListener(() {
         setState(() {});
       });
@@ -30,10 +30,10 @@ class TextImageScreenState extends State<TextImageScreen>
   Widget build(BuildContext context) {
     return Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: <Widget>[
-           SizedBox(height: 170),
+           SizedBox(height: 150),
          _textWidget(widget.position),
-          SizedBox(height: 100),
              customDynamicWidget(),
       ],
     ));
@@ -154,7 +154,7 @@ class TextImageScreenState extends State<TextImageScreen>
           child: Transform.translate(
             offset: Offset(0, animation.value),
             child: Container(
-              height: 400,
+              height: 350,
               width: 250,
               decoration: BoxDecoration(
                   image: DecorationImage(
@@ -169,7 +169,7 @@ class TextImageScreenState extends State<TextImageScreen>
       return Expanded(
         child: Align(alignment:Alignment.bottomCenter,
           child: Container(
-              height: 400,
+              height: 350,
               width: 250,
               decoration: BoxDecoration(
                   image: DecorationImage(
